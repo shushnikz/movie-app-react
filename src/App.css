@@ -1,0 +1,35 @@
+/* .App {
+  text-align: center;
+} */
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.image{
+  height: 800px;
+  object-fit: cover;
+}
+.counter-btn{
+  width: 50px;
+  display: inline;
+  align-items: center;
+  margin-right: 1rem;
+}
+.button{
+  margin-bottom: 10px;
+}
+.movie-detail{
+  max-width: 800px;
+}
+.add-movie{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.not-found{
+  width: 100%;
+  object-fit: cover;
+  height: 500px;
+}
