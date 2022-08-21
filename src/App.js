@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, Routes, Route, Link } from "react-router-dom";
+import { Navigate, Routes, Route, useNavigate } from "react-router-dom";
 import AddColor from "./AddColor";
 import "./App.css";
 import Movies from "./Movies";
@@ -7,7 +7,18 @@ import { useState } from "react";
 import { MovieDetails } from "./MovieDetails";
 import { NotFoundPage } from "./NotFoundPage";
 import AddMovie from "./AddMovie";
-
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import AppBar from '@mui/material/AppBar';
+import { Button } from "@mui/material";
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import CssBaseline from '@mui/material/CssBaseline';
+import Paper from '@mui/material/Paper';
+import { Home } from "./Home";
+import {useEffect} from "react";
+import { EditMovie } from "./EditMovie";
+import { BasicForm } from "./BasicForm";
 
 const movieData = [
   {
@@ -98,14 +109,31 @@ const movieData = [
 ]
 
 
+
 function App() {
 //Lifting the state up
-  const[movieList,setmovieList]=useState(movieData)
 
+
+const[movieList,setMovieList]=useState([])
+  const navigate=useNavigate()
+  const[mode,setMode]=useState("light")
+
+  
+
+  
+  
+  const theme=createTheme({
+    palette: {
+      mode: mode,
+    },
+  })
   return (
-
+    <ThemeProvider theme={theme}>
+       {/* <CssBaseline /> */}
+       <Paper style={{borderRadius: 0, minHeight: "100vh"}} elevation={24}>
     <div className="App">
-      <nav>
+       
+      {/* <nav>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -120,28 +148,44 @@ function App() {
           <Link to="/movies/add">Add-Movies</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+
+<AppBar position="static">
+  <Toolbar>
+    <Button color="inherit" onClick={()=>navigate("/")}>Home</Button>
+    <Button color="inherit" onClick={()=>navigate("/movies")}>Movies</Button>
+    <Button color="inherit" onClick={()=>navigate("/color-game")}>Color-Game</Button>
+    <Button color="inherit" onClick={()=>navigate("/movies/add")}>Add-Movies</Button>
+    <Button
+    startIcon={mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+    color="inherit" 
+    onClick={()=>setMode(mode==="light"?"dark":"light")}>
+      {mode==="light"?"dark":"light"} Mode
+    </Button>
+    
+  </Toolbar>
+</AppBar>
+
+
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies movieList={movieList} setmovieList={setmovieList} />} />
-        <Route path="/movies/:movieid" element={<MovieDetails movieList={movieList}/>} />
-        <Route path="/movies/add" element={<AddMovie movieList={movieList} setmovieList={setmovieList} />} />
+        <Route path="/movies" element={<Movies  />} />
+        <Route path="/movies/:id" element={<MovieDetails movieList={movieList} />} />
+        <Route path="/movies/add" element={<AddMovie movieList={movieList} setMovieList={setMovieList} />} />
+        <Route path="/movies/edit/:id" element={<EditMovie />} />
+        <Route path="/movies/basicform" element={<BasicForm />} />
         <Route path="/color-game" element={<AddColor />} />
-        <Route path="/films" element={<Navigate replace to="/movies" />} />
+        {/* <Route path="/films" element={<Navigate replace to="/movies" />} />
         <Route path="/404" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate replace to="/404" />} />
+        <Route path="*" element={<Navigate replace to="/404" />} /> */}
       </Routes>
-
+     
     </div>
+    </Paper>
+    </ThemeProvider>
   );
 }
 
 export default App;
-
-function Home(){
-  return(
-    <h1>Welcome to the Movie app 😊🎇🎇✨🎉🎉</h1>
-  )
-}
 
 

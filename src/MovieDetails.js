@@ -4,11 +4,21 @@ import Button from '@mui/material/Button';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from "react-router-dom";
 import { NotFoundPage } from "./NotFoundPage";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export function MovieDetails({ movieList }) {
-  const { movieid } = useParams();
-  const movie = movieList[movieid];
+  const { id } = useParams();
+  // const movie = movieList[movieid];
   // console.log(movieList);
+
+   const[movie,setMovie]=useState({})
+   useEffect(()=>{
+    fetch(`https://62f4b522ac59075124c21aa9.mockapi.io/movies/${id}`,{method: "GET",})
+    .then(data=>data.json())
+    .then((mvs)=>setMovie(mvs))
+  },[])
+
   const navigate=useNavigate()
   if(!movie){
     return(<NotFoundPage />)
@@ -20,7 +30,7 @@ export function MovieDetails({ movieList }) {
       <div className="movie-detail">
       
             <div className="card m-4 border-0">
-                    <div className="card-body">
+                    <div className="card-body bg-dark text-light">
                     <div className="d-flex justify-content-between">
                      <h5 className="card-title me-3 fs-4">{movie.title}</h5>
                        

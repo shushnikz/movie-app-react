@@ -13,7 +13,9 @@ const Card=({
     image,
     title,
     rating,
-    description
+    description,
+    deleteButton,
+    editButton
 })=>{
     const styles={
         color: rating>=8?"green":"red"
@@ -34,7 +36,7 @@ const navigate=useNavigate();
                 <div className="card m-4 border-0">
               
                      <img src={image} className="card-img-top image" alt=""></img>
-                     <div className="card-body">
+                     <div className="card-body bg-dark text-light">
                      <div className="d-flex justify-content-between">
                          <h5 className="card-title me-3 fs-4">{title}
                          <IconButton onClick={()=>setShow(!show)} 
@@ -54,7 +56,11 @@ const navigate=useNavigate();
                         
                          {/* {show?<p className="card-text text-start mt-3">{description}</p>:null} */}
                          <p style={descriptionStyle} className="card-text text-start mt-3">{description}</p>
+                         <div className="d-flex justify-content-between">
                          <Counter />
+                         <span>{deleteButton}{editButton}</span>
+                         </div>
+                         
                      
                      </div>
                  
