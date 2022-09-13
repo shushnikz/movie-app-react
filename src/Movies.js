@@ -32,10 +32,10 @@ function Movies() {
              <Card 
              key={movie.id}
              id={movie.id}
-             image={movie.image}
-             title={movie.title}
+             poster={movie.poster}
+             name={movie.name}
               rating={movie.rating}
-              description={movie.description}
+              summary={movie.summary}
               deleteButton={
                 <IconButton
                 onClick={()=>{

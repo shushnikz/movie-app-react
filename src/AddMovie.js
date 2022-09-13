@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { API } from "./global"
 
 function AddMovie({movieList,setmovieList}){
-    const[title,setTitle]=useState("")
-    const[image,setImage]=useState("")
+    const[name,setTitle]=useState("")
+    const[poster,setImage]=useState("")
     const[rating,setRating]=useState("")
-    const[description,setDescription]=useState("")
+    const[summary,setDescription]=useState("")
     const[trailer,setTrailor]=useState("")
     const Navigate=useNavigate()
     return(
@@ -28,10 +28,10 @@ function AddMovie({movieList,setmovieList}){
             <Button 
             onClick={()=>{
                 const newMovie={
-                      image:image,
-                      title:title,
+                      poster:poster,
+                      name:name,
                       rating:rating,
-                      description:description,
+                      summary:summary,
                       trailer:trailer
                 }
             //   setmovieList([...movieList,newMovie])

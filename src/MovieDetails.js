@@ -9,6 +9,7 @@ import { useEffect } from "react";
 
 export function MovieDetails({ movieList }) {
   const { id } = useParams();
+  console.log(id);
   // const movie = movieList[movieid];
   // console.log(movieList);
 
@@ -17,7 +18,7 @@ export function MovieDetails({ movieList }) {
     fetch(`https://62f4b522ac59075124c21aa9.mockapi.io/movies/${id}`,{method: "GET",})
     .then(data=>data.json())
     .then((mvs)=>setMovie(mvs))
-  },[])
+  }, [])
 
   const navigate=useNavigate()
   if(!movie){
@@ -32,11 +33,11 @@ export function MovieDetails({ movieList }) {
             <div className="card m-4 border-0">
                     <div className="card-body bg-dark text-light">
                     <div className="d-flex justify-content-between">
-                     <h5 className="card-title me-3 fs-4">{movie.title}</h5>
+                     <h5 className="card-title me-3 fs-4">{movie.name}</h5>
                        
                     <span className="p-1 w-auto fs-6">⭐{movie.rating}</span>
                         </div>
-                        <p className="card-text text-start mt-3">{movie.description}</p>
+                        <p className="card-text text-start mt-3">{movie.summary}</p>
                         <Button onClick={()=> navigate(-1)}
                         variant="contained" startIcon={<ArrowBackIosIcon />}>
                         Back
